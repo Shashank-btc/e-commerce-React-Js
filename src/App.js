@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import Navbar from './components/TopNavBar';
+import SecondaryTopNavbar from './components/SecondaryTopbar';
+import Routing from './routing/Routing';
 
-function App() {
+const App = () => {  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{backgroundColor : '#CCE6E6'}}>
+    <Navbar/>
+    <SecondaryTopNavbar/>
+    <Routing/>
     </div>
-  );
-}
-
-export default App;
+    )
+  };
+  
+  export default App;
+  

@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/e-commerce-backend/node_modules
 /.pnp
 .pnp.js
 
