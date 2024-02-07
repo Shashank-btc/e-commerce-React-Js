@@ -1,5 +1,7 @@
 export default function Content (){
     return(
-        <h2>Content</h2>
+        <div >
+        <iframe src="https://www.example.com" title="Web Content" width="100%" height="600"></iframe>
+        </div>
     )
  }

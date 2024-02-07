@@ -1,14 +1,15 @@
 
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import mainImage from '../assets/mainpageimage.png'
 import Button from '../props/Button'
 
 import { useNavigate  } from 'react-router-dom';
+import { CounterContext } from '../contextAPI/CreateContextAPI';
+import axios from 'axios';
 export default function Home() {
     const history = useNavigate ();
 
-    const [isClicked, setISClicked] = useState(false)
-
+    
     function onClickShopNow(){
         history('/ListOdData');
     }

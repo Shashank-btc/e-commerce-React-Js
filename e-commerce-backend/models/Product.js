@@ -32,7 +32,15 @@ const productSchema = new mongoose.Schema({
             type: String, // Assuming rating count is a number
             required: true,
         }
-    }
+    },
+    isLiked :{
+        type : Boolean,
+        required : true,
+    },
+    // cart :{
+    //     type : Boolean,
+    //     required : true,
+    // }
 });
 
 const Product = mongoose.model('Product', productSchema);

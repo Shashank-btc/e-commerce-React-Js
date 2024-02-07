@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import shopdown from '../assets/shopdown.png'
 import search from '../assets/search.png'
 import cart from '../assets/cart.png'
 import like from '../assets/like.png'
 import profile from '../assets/profilelogin.png'
 import { Navbar, Nav, NavDropdown, Dropdown } from 'react-bootstrap';
+import { CounterContext } from '../contextAPI/CreateContextAPI';
+
 
 
 const SecondaryTopNavbar = () => {
+
+  const { likeCount, cartCount } = useContext(CounterContext);
+
   return (
     <>
       <Navbar style={{ background: '#F0F0F0' }} expand="lg">
@@ -28,9 +33,9 @@ const SecondaryTopNavbar = () => {
           </Nav>
           <Nav className="ml-auto"  style={{paddingRight: '50px'}}>
             <Nav.Link href="LoginOrRegister" style={{ color: '#23A6F0' }}><img src={profile} style={{ paddingBottom: '3px', paddingRight: "5px" }} />Login / Register </Nav.Link>
-            <Nav.Link href="search"><img src={search} style={{ paddingBottom: '3px', paddingRight: "5px" }} />1</Nav.Link>
-            <Nav.Link href="cart"><img src={cart} style={{ paddingBottom: '3px', paddingRight: "5px" }} />1</Nav.Link>
-            <Nav.Link href="like"><img src={like} style={{ paddingBottom: '3px', paddingRight: "5px" }} />1</Nav.Link>
+            <Nav.Link href="search"><img src={search} style={{ paddingBottom: '3px', paddingRight: "5px" }} /></Nav.Link>
+            <Nav.Link href="cart"><img src={cart} style={{ paddingBottom: '3px', paddingRight: "5px" }} />{cartCount}</Nav.Link>
+            <Nav.Link href="like"><img src={like} style={{ paddingBottom: '3px', paddingRight: "5px" }} />{likeCount}</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

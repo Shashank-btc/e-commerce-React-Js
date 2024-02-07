@@ -1,9 +1,10 @@
 
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import DisplayItemListCarOrLike from "./DisplayItemListCarOrLike"
 import axios from "axios";
 
 export default function Cart() {
+
 
     const [listOfCart, setListOfCart] = useState([])
     
@@ -19,10 +20,17 @@ export default function Cart() {
         fetchData();
     },[])
 
+    const deleteItem = (item) => {
+      // Create a new array excluding the item at the specified index
+      const updatedList = listOfCart.filter((existingItem) => existingItem !== item);
+      setListOfCart(updatedList);
+    };
+
+
     return (
         <div>
             {listOfCart.map((item, index) => (
-                <DisplayItemListCarOrLike key={index} item={item} text={'Proceed to checkout'}/>
+                <DisplayItemListCarOrLike key={index} item={item} text={'Proceed to checkout'} onDelete={deleteItem} />
             ))}
         </div>
     )

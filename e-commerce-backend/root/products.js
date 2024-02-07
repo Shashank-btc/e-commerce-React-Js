@@ -27,6 +27,8 @@ router.post('/', async (req, res) => {
         description: req.body.description,
         category : req.body.category,
         image : req.body.image,
+        isLiked : req.body.isLiked,
+        // cart : req.cart.cart,
         rating: {count: req.body.rating.count, rate : req.body.rating.rate}
 
     });
@@ -52,6 +54,9 @@ router.patch('/:id', getProduct, async (req, res) => {
     if (req.body.description != null) {
         res.product.description = req.body.description;
     }
+    if(req.body.isLiked != null){
+        res.product.isLiked = req.body.isLiked;
+    }
 
     try {
         const updatedProduct = await res.product.save();
@@ -60,6 +65,19 @@ router.patch('/:id', getProduct, async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
+
+
+router.patch('/:title', getProductByTitle, async(req, res) =>{
+    if(req.body.isLiked != null){
+        res.product.isLiked = req.body.isLiked;
+    }
+    try {
+        const updatedProduct = await res.product.save();
+        res.json(updatedProduct);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+})
 
 // Delete a product
 router.delete('/:id', getProduct, async (req, res) => {
@@ -76,6 +94,23 @@ async function getProduct(req, res, next) {
     let product;
     try {
         product = await Product.findById(req.params.id);
+        if (product == null) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+
+    res.product = product;
+    next();
+}
+
+
+async function getProductByTitle(req, res, next) {
+    let product;
+
+    try {
+        product = await Product.find(req.params.title);
         if (product == null) {
             return res.status(404).json({ message: 'Product not found' });
         }

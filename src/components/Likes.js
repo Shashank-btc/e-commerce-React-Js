@@ -1,14 +1,16 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DisplayItemListCarOrLike from "./DisplayItemListCarOrLike";
+import { CounterContext } from "../contextAPI/CreateContextAPI";
 
 export default function Like (){
-    const [listOfCart, setListOfCart] = useState([])
+
+    const [listOfLike, setListOfLike] = useState([])
     
     const fetchData = async () => {
         try {
           const response = await axios.get('http://localhost:5000/like/');
-          setListOfCart(response.data);
+          setListOfLike(response.data);
         } catch (error) {
           console.error('Error fetching data:', error);
         }
@@ -17,10 +19,19 @@ export default function Like (){
         fetchData();
     },[])
 
+    
+
+    const deleteItem = (item) => {                                                                                      
+      const updatedList = listOfLike.filter((existingItem) => existingItem !== item);
+      setListOfLike(updatedList);
+    };
+
+
+
     return (
         <div>
-            {listOfCart.map((item, index) => (
-                <DisplayItemListCarOrLike key={index} item={item} text={'Add to cart'}/>
+            {listOfLike.map((item, index) => (
+                <DisplayItemListCarOrLike key={index} item={item} text={'Add to cart'} onDelete={deleteItem}/>
             ))}
         </div>
     )
