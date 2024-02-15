@@ -2,10 +2,13 @@ import axios from 'axios';
 import Button from '../props/Button'
 import { useContext, useEffect, useState } from 'react';
 import { CounterContext } from '../contextAPI/CreateContextAPI';
+import { useNavigate } from 'react-router-dom';
 
 export default function DisplayItemListCarOrLike({item, text, onDelete}){
 
     const { incrementLike, incrementCart , listOffProducts} = useContext(CounterContext);
+
+    const navigarion = useNavigate();
 
     
 
@@ -24,6 +27,7 @@ export default function DisplayItemListCarOrLike({item, text, onDelete}){
         // price :'',
     
     })
+    // console.log(listOffProducts)
 
     useEffect(() =>{
         updateProducts()
@@ -63,11 +67,17 @@ export default function DisplayItemListCarOrLike({item, text, onDelete}){
         if(text === 'Add to cart'){
             
         } else{
-            alert('Proceed to checkout')
+            console.log(localStorage.getItem('userId'))
+            if(localStorage.getItem('userId') === null){
+                navigarion('/LoginOrRegister')   
+            } else{
+                navigarion('/Payment')
+            }
         }
     }
      const handleDelete = () => {
         listOffProducts.map((details) =>(
+            // console.log(item.title === details.title)
             (item.title === details.title) ? updateTheData(details) : console.log('not this wont work')  
         ))
       };

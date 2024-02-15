@@ -32,6 +32,9 @@ const productSchema = new mongoose.Schema({
             type: String, // Assuming rating count is a number
             required: true,
         }
+    },
+    userId:{
+        type : String
     }
 });
 

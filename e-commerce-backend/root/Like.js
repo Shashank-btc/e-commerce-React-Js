@@ -19,8 +19,8 @@ router.post('/', async (req, res) => {
         description: req.body.description,
         category : req.body.category,
         image : req.body.image,
-        rating: {count: req.body.rating.count, rate : req.body.rating.rate}
-
+        rating: {count: req.body.rating.count, rate : req.body.rating.rate},
+        userId : req.body.userId,
     });
 
     try {

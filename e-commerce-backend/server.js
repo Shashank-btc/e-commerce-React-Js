@@ -25,9 +25,11 @@ db.once('open', () => {
 const productsRouter = require('./root/products');
 const Cart = require('./root/Cart');
 const Like = require('./root/Like');
+const User = require('./root/User');
 app.use('/products', productsRouter);
 app.use('/cart', Cart);
 app.use('/like', Like);
+app.use('/user', User);
 
 // Start server
 app.listen(PORT, () => {

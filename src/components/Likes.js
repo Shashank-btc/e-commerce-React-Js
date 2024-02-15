@@ -4,6 +4,9 @@ import DisplayItemListCarOrLike from "./DisplayItemListCarOrLike";
 import { CounterContext } from "../contextAPI/CreateContextAPI";
 
 export default function Like (){
+  
+  const { newUser } = useContext(CounterContext);
+
 
     const [listOfLike, setListOfLike] = useState([])
     
@@ -31,7 +34,10 @@ export default function Like (){
     return (
         <div>
             {listOfLike.map((item, index) => (
-                <DisplayItemListCarOrLike key={index} item={item} text={'Add to cart'} onDelete={deleteItem}/>
+              item.userId !== null && item.userId === newUser.userId ?(
+                <DisplayItemListCarOrLike key={index} item={item} text={'Add to cart'} onDelete={deleteItem}/> ) :
+                null
+                // <DisplayItemListCarOrLike key={index} item={item} text={'Add to cart'} onDelete={deleteItem}/> 
             ))}
         </div>
     )
