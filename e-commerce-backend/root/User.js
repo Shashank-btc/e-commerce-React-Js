@@ -20,6 +20,7 @@ router.post('/', async (req, res) => {
         email: req.body.email,
         password: req.body.password,
         userId : req.body.userId,
+        wallet : req.body.wallet,
 
     });
 
@@ -31,13 +32,26 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Delete a product
+// Delete a user
 router.delete('/:userId', getUser, async (req, res) => {
     try {
         await res.user.deleteOne();
         res.json({ message: 'user deleted' });
     } catch (error) {
         res.status(500).json({ message: error.message });
+    }
+});
+
+// Update a User
+router.patch('/:userId', getUserId, async (req, res) => {
+    if (req.body.wallet != null) {
+        res.user.wallet = req.body.wallet;
+    }
+    try{
+        const updatedUser = await res.user.save();
+        res.json(updatedUser);
+    } catch(error){
+        res.status(400).json({ message: error.message });
     }
 });
 

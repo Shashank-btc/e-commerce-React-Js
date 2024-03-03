@@ -11,6 +11,8 @@ import SignIn from "../components/SignIn";
 import SignUp from "../components/SingnUP";
 import Profile from "../components/Profile";
 import PaymentScreen from "../components/PaymentScreen";
+import Wallet from "../components/Wallet";
+import SingnUpReducer from "../components/SingnUpReducer";
 export default function Routing() {
 return(
 <Routes>
@@ -25,6 +27,8 @@ return(
 <Route path="/SignUP" element={<SignUp></SignUp>}/>
 <Route path="/Profile" element={<Profile></Profile>}/>
 <Route path="/Payment" element={<PaymentScreen></PaymentScreen>}/>
+<Route path="/wallet" element={<Wallet></Wallet>} />
+<Route path="'/signUpReducer" element={<SingnUpReducer></SingnUpReducer>}/>
 </Routes>
 );
 }

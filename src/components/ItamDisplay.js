@@ -62,19 +62,19 @@ export default function ItemDisplay({item}) {
 
       useEffect(() =>{
         updateProducts()
-      },[updateProduct])
+      },[updateProduct, isLike])
 
       useEffect(() =>{
         listOffLike.map((item) =>{
-          console.log("list item",item.userId)
-          console.log("list item2",localStorage.getItem('userId'))
+          // console.log("list item",item.userId)
+          // console.log("list item2",localStorage.getItem('userId'))
       if(item.userId === localStorage.getItem("userId")){
       
         liked = item.userId === localStorage.getItem("userId")
-        console.log("list item3",localStorage.getItem("userId"))
+        // console.log("list item3",localStorage.getItem("userId"))
       }
       })
-      },[])
+      },[isLike,UpdateLike])
 
       const handleClickBuyNow = () => {
        postDetails();
@@ -186,7 +186,7 @@ console.log("console log",newUser.userId)
         <div style={{ width : '60%', height : '60%', margin: '25px',}}>
 
             <div style={{  justifyContent: 'end', display: "flex",}}>
-                <img src={(item.isLiked) ? Likedheart : heart} style={{ width : '20%', height: '20%',  justifyContent: 'end', justifyContent: 'end', cursor: 'pointer',mixBlendMode: 'multiply',}} onClick={handleClickLike} />
+                <img src={(isLike || item.isLiked) ? Likedheart : heart} style={{ width : '20%', height: '20%',  justifyContent: 'end', justifyContent: 'end', cursor: 'pointer',mixBlendMode: 'multiply',}} onClick={handleClickLike} />
             </div>
             <div style={{justifyContent : ""}}>
                 <img src={item.image} alt="display" style={{ width: '100%', height: '100%', mixBlendMode: 'multiply',}} />

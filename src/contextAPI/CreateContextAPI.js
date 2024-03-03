@@ -19,7 +19,8 @@ const CounterProvider = ({ children }) => {
     name : '',
     email : '',
     password : '',
-    userId : ''  
+    userId : '',
+    wallet : ''  
 })
 
 const auth = getAuth();
@@ -27,18 +28,20 @@ const auth = getAuth();
 const navigate = useNavigate ();
 
 
-// console.log('get user data ', newUser)
+// console.log('get user local storgae ',localStorage.getItem("userId"))
+// console.log('get userID', newUser.wallet)
+const data = localStorage.getItem("userId");
   
     useEffect(() => {
-        fetchDataCart()
-        fetchDataLike()
-        fetchData()
+      fetchDataCart()
+      fetchDataLike()
+      fetchData()
         getUserDetails()
-    },[])
+      },[])
 
     useEffect(() =>{
       // if(newUser.userId ==='')
-      const data = localStorage.getItem("userId");
+      // const data = localStorage.getItem("userId");
       // console.log("userId",data)
       if(data === null){
       handleLogin()
@@ -47,12 +50,11 @@ const navigate = useNavigate ();
 
    const getUserDetails= async() =>{
     try{
-    const data = localStorage.getItem("userId");
     var url = 'http://localhost:5000/user/'+data
     const response = await axios.get(url);
-    // console.log("response.data is",response.data)
+    console.log("get user data",newUser.name)
+    // if(newUser.name === undefined)
     setNewUser(response.data)
-
     } catch(error){
       console.error('Error fetching data:', error);
     }
@@ -147,12 +149,14 @@ const navigate = useNavigate ();
     .then((userCredential) => {
       // Signed in successfully
       const user = userCredential.user;
-      setNewUser({
-                userId : user.uid,
-                email : user.email,
-      });
+      // getUserDetails()
+      // setNewUser({
+      //           userId : user.uid,
+      //           email : user.email,
+      // });
       localStorage.setItem("userId", user.uid);
       // console.log('User signed in successfully:', user.uid);
+      // getUserDetails()
       navigate('/ListOdData');
       // You can perform additional actions here, such as redirecting to another page
     })

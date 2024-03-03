@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-export default function Inputfield( {type, placeholder, onChange, value}){
+export default function Inputfield( { type, placeholder, onChange, value}){
    
     const[inputNumber,setInputNumber]=useState();
 

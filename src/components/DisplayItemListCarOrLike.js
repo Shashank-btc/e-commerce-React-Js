@@ -10,8 +10,7 @@ export default function DisplayItemListCarOrLike({item, text, onDelete}){
 
     const navigarion = useNavigate();
 
-    
-
+    const [remove, isRemove] = useState(false)
     const [updateLike, setUpdateLike] = useState({
         _id: '',
         title: '',
@@ -55,6 +54,9 @@ export default function DisplayItemListCarOrLike({item, text, onDelete}){
         try{
             const urls = 'http://localhost:5000/products/'+updateLike._id
           const response = await axios.patch(urls, updateLike)
+          if(!remove){
+            navigarion("/Cart")
+          }
           console.log(response)
           removeData()
         }catch (error) {
@@ -65,21 +67,42 @@ export default function DisplayItemListCarOrLike({item, text, onDelete}){
 
     function handleClick(){
         if(text === 'Add to cart'){
-            
+            if(localStorage.getItem('userId') === null) {
+                navigarion('/LoginOrRegister')   
+            } else {
+                postDataLikeOrCart()
+            }
         } else{
-            console.log(localStorage.getItem('userId'))
-            if(localStorage.getItem('userId') === null){
+            if(localStorage.getItem('userId') === null) {
                 navigarion('/LoginOrRegister')   
             } else{
-                navigarion('/Payment')
+                navigarion('/Payment',{
+                    state : {
+                        item
+                    }
+                })
             }
         }
     }
-     const handleDelete = () => {
-        listOffProducts.map((details) =>(
-            // console.log(item.title === details.title)
-            (item.title === details.title) ? updateTheData(details) : console.log('not this wont work')  
-        ))
+
+    const postDataLikeOrCart = async() => {
+        try{
+            let url ="http://localhost:5000/cart";
+            const response = await axios.post(url, item)
+            console.log("data",response.data)
+            incrementCart(true)
+            updateData('http://localhost:5000/like/'+item._id)
+            } catch (error) {
+                console.error('Error fetching data:', error);
+              } 
+      }
+
+      const handleDelete = () => {
+        isRemove(true)
+          listOffProducts.map((details) =>(
+              // console.log(item.title === details.title)
+              (item.title === details.title) ? updateTheData(details) : console.log('')  
+              ))
       };
 
     function removeData(){
@@ -104,7 +127,9 @@ export default function DisplayItemListCarOrLike({item, text, onDelete}){
             } else{
                 incrementCart(false)
             }
-            // handleDelete()
+            if(text === 'Add to cart'){
+                handleDelete()
+            }
         } catch (error) {
             console.error('Error deleting example:', error);
           }
@@ -118,11 +143,10 @@ export default function DisplayItemListCarOrLike({item, text, onDelete}){
             <img src={item.image} alt='img' style={{width : '200px', height : '200px', mixBlendMode: 'multiply'}} />
             <div style={{ padding : '20px', margin : '10px'}}>
             <h5>{item.title}</h5>
-            <h6>{item.price}</h6>
+            <h6>$ {item.price}</h6>
             <h6>{item.rating.rate}/{item.rating.count}</h6>
             <h6>{item.description}</h6>
-            <Button onClick={handleClick}>{text}</Button>
-            <Button onClick={handleDelete}>Remove</Button>
+            { text === '' ? null : (<><Button onClick={handleClick}>{text}</Button><Button onClick={handleDelete}>Remove</Button></>)}
             </div>
         </div>
     )

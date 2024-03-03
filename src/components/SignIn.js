@@ -7,6 +7,7 @@ import SignUp from './SingnUP';
 // import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { CounterContext } from '../contextAPI/CreateContextAPI';
+import SingnUpReducer from './SingnUpReducer';
 
 
 export default function SignIn({onClick}) {
@@ -66,7 +67,7 @@ function forPassword(event){
 
   return (
 <>
-      { showSignUp ? <SignUp onClick={backtoSignUp}/> :
+      { showSignUp ? <SingnUpReducer onClick={backtoSignUp}/> :
     <div style={{alignContent : 'center', justifyContent : 'center', padding : '10px'}} >
 
       <div style={{ alignItems : 'center', justifyItems : 'center', alignSelf : 'center'}}> 
